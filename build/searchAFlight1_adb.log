@@ -1,0 +1,8 @@
+2017-05-12 07:22:08:607 - info: [Appium] Welcome to Appium v1.6.4
+2017-05-12 07:22:08:611 - info: [Appium] Non-default server args:
+2017-05-12 07:22:08:612 - info: [Appium]   address: 127.0.0.1
+2017-05-12 07:22:08:612 - info: [Appium]   port: 27008
+2017-05-12 07:22:08:613 - info: [Appium]   sessionOverride: true
+2017-05-12 07:22:08:613 - info: [Appium]   log: /home/nishant/Development/MakeMyTrip/build/searchAFlight1_adb.log
+2017-05-12 07:22:08:665 - info: [Appium] Appium REST http interface listener started on 127.0.0.1:27008
+2017-05-12 07:22:08:725 - info: [Appium] Received SIGINT - shutting down

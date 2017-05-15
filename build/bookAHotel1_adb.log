@@ -1,0 +1,94 @@
+2017-05-12 09:57:57:563 - info: [Appium] Welcome to Appium v1.6.4
+2017-05-12 09:57:57:566 - info: [Appium] Non-default server args:
+2017-05-12 09:57:57:568 - info: [Appium]   address: 127.0.0.1
+2017-05-12 09:57:57:568 - info: [Appium]   port: 15024
+2017-05-12 09:57:57:568 - info: [Appium]   sessionOverride: true
+2017-05-12 09:57:57:569 - info: [Appium]   log: /home/nishant/Development/MakeMyTrip/build/bookAHotel1_adb.log
+2017-05-12 09:57:57:641 - info: [Appium] Appium REST http interface listener started on 127.0.0.1:15024
+2017-05-12 09:57:57:969 - info: [HTTP] --> GET /wd/hub/status {}
+2017-05-12 09:57:57:973 - info: [debug] [MJSONWP] Calling AppiumDriver.getStatus() with args: []
+2017-05-12 09:57:57:988 - info: [debug] [MJSONWP] Responding to client with driver.getStatus() result: {"build":{"version":"1.6.4","revision":null}}
+2017-05-12 09:57:57:995 - info: [HTTP] <-- GET /wd/hub/status 200 22 ms - 83 
+2017-05-12 09:57:58:141 - info: [HTTP] --> GET /wd/hub/status {}
+2017-05-12 09:57:58:141 - info: [debug] [MJSONWP] Calling AppiumDriver.getStatus() with args: []
+2017-05-12 09:57:58:155 - info: [debug] [MJSONWP] Responding to client with driver.getStatus() result: {"build":{"version":"1.6.4","revision":null}}
+2017-05-12 09:57:58:158 - info: [HTTP] <-- GET /wd/hub/status 200 16 ms - 83 
+2017-05-12 09:57:58:830 - info: [HTTP] --> POST /wd/hub/session {"desiredCapabilities":{"app":"/home/nishant/Development/MakeMyTrip/app/MakeMyTrip_5.6.8.apk","appActivity":"com.mmt.travel.app.home.ui.SplashActivity","appPackage":"com.makemytrip","udid":"adb","platformName":"Android","deviceName":"error: device 'adb' not found"}}
+2017-05-12 09:57:58:831 - info: [debug] [MJSONWP] Calling AppiumDriver.createSession() with args: [{"app":"/home/nishant/Development/MakeMyTrip/app/MakeMyTrip_5.6.8.apk","appActivity":"com.mmt.travel.app.home.ui.SplashActivity","appPackage":"com.makemytrip","udid":"adb","platformName":"Android","deviceName":"error: device 'adb' not found"},null,null,null,null]
+2017-05-12 09:57:58:832 - info: [debug] [BaseDriver] Event 'newSessionRequested' logged at 1494583078832 (15:27:58 GMT+0530 (IST))
+2017-05-12 09:57:58:834 - info: [Appium] Creating new AndroidDriver (v1.17.1) session
+2017-05-12 09:57:58:834 - info: [Appium] Capabilities:
+2017-05-12 09:57:58:836 - info: [Appium]   app: '/home/nishant/Development/MakeMyTrip/app/MakeMyTrip_5.6.8.apk'
+2017-05-12 09:57:58:836 - info: [Appium]   appActivity: 'com.mmt.travel.app.home.ui.SplashActivity'
+2017-05-12 09:57:58:836 - info: [Appium]   appPackage: 'com.makemytrip'
+2017-05-12 09:57:58:836 - info: [Appium]   udid: 'adb'
+2017-05-12 09:57:58:837 - info: [Appium]   platformName: 'Android'
+2017-05-12 09:57:58:837 - info: [Appium]   deviceName: 'error: device \'adb\' not found'
+2017-05-12 09:57:58:839 - info: [debug] [AndroidDriver] AndroidDriver version: 1.17.1
+2017-05-12 09:57:58:887 - info: [BaseDriver] Session created with session id: 3895d2c3-71fd-46a4-999d-7c994006159e
+2017-05-12 09:57:58:889 - info: [debug] [AndroidDriver] Getting Java version
+2017-05-12 09:57:58:949 - info: [AndroidDriver] Java version is: 1.8.0_131
+2017-05-12 09:57:58:952 - info: [ADB] Checking whether adb is present
+2017-05-12 09:57:58:953 - warn: [ADB] The ANDROID_HOME environment variable is not set to the Android SDK root directory path. ANDROID_HOME is required for compatibility with SDK 23+. Checking along PATH for adb.
+2017-05-12 09:57:58:962 - info: [ADB] Using adb from /usr/bin/adb
+
+2017-05-12 09:57:58:962 - info: [AndroidDriver] Retrieving device list
+2017-05-12 09:57:58:963 - info: [debug] [ADB] Trying to find a connected android device
+2017-05-12 09:57:58:964 - info: [debug] [ADB] Getting connected devices...
+2017-05-12 09:58:01:990 - error: [ADB] Error: Error while getting connected devices. Original error: Command '/usr/bin/adb devices' exited with code 1
+    at Object.wrappedLogger.errorAndThrow (../../lib/logging.js:63:13)
+    at ADB.callee$0$0$ (../../../lib/tools/system-calls.js:120:9)
+    at tryCatch (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:67:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:315:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as throw] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:100:21)
+    at GeneratorFunctionPrototype.invoke (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:136:37)
+    at process._tickCallback (internal/process/next_tick.js:109:7)
+ Error: Error while getting connected devices. Original error: Command '/usr/bin/adb devices' exited with code 1
+    at Object.wrappedLogger.errorAndThrow (../../lib/logging.js:63:13)
+    at ADB.callee$0$0$ (../../../lib/tools/system-calls.js:120:9)
+    at tryCatch (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:67:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:315:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as throw] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:100:21)
+    at GeneratorFunctionPrototype.invoke (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:136:37)
+    at process._tickCallback (internal/process/next_tick.js:109:7)
+2017-05-12 09:58:01:991 - info: [debug] [ADB] Could not find devices, restarting adb server...
+2017-05-12 09:58:01:991 - info: [debug] [ADB] Restarting adb
+2017-05-12 09:58:02:202 - info: [debug] [ADB] Getting connected devices...
+2017-05-12 09:58:05:215 - error: [ADB] Error: Error while getting connected devices. Original error: Command '/usr/bin/adb devices' exited with code 1
+    at Object.wrappedLogger.errorAndThrow (../../lib/logging.js:63:13)
+    at ADB.callee$0$0$ (../../../lib/tools/system-calls.js:120:9)
+    at tryCatch (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:67:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:315:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as throw] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:100:21)
+    at GeneratorFunctionPrototype.invoke (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:136:37)
+    at process._tickCallback (internal/process/next_tick.js:109:7)
+ Error: Error while getting connected devices. Original error: Command '/usr/bin/adb devices' exited with code 1
+    at Object.wrappedLogger.errorAndThrow (../../lib/logging.js:63:13)
+    at ADB.callee$0$0$ (../../../lib/tools/system-calls.js:120:9)
+    at tryCatch (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:67:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:315:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as throw] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:100:21)
+    at GeneratorFunctionPrototype.invoke (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:136:37)
+    at process._tickCallback (internal/process/next_tick.js:109:7)
+2017-05-12 09:58:05:216 - info: [debug] [ADB] Could not find devices, restarting adb server...
+2017-05-12 09:58:05:216 - info: [debug] [ADB] Restarting adb
+2017-05-12 09:58:05:427 - info: [debug] [ADB] Getting connected devices...
+2017-05-12 09:58:08:098 - info: [Appium] Received SIGINT - shutting down
+2017-05-12 09:58:08:100 - error: [ADB] Error: Error while getting connected devices. Original error: Command '/usr/bin/adb devices' exited with code null
+    at Object.wrappedLogger.errorAndThrow (../../lib/logging.js:63:13)
+    at ADB.callee$0$0$ (../../../lib/tools/system-calls.js:120:9)
+    at tryCatch (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:67:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:315:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as throw] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:100:21)
+    at GeneratorFunctionPrototype.invoke (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:136:37)
+ Error: Error while getting connected devices. Original error: Command '/usr/bin/adb devices' exited with code null
+    at Object.wrappedLogger.errorAndThrow (../../lib/logging.js:63:13)
+    at ADB.callee$0$0$ (../../../lib/tools/system-calls.js:120:9)
+    at tryCatch (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:67:40)
+    at GeneratorFunctionPrototype.invoke [as _invoke] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:315:22)
+    at GeneratorFunctionPrototype.prototype.(anonymous function) [as throw] (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:100:21)
+    at GeneratorFunctionPrototype.invoke (/usr/lib/node_modules/appium/node_modules/babel-runtime/regenerator/runtime.js:136:37)
+2017-05-12 09:58:08:100 - info: [debug] [ADB] Could not find devices, restarting adb server...
+2017-05-12 09:58:08:101 - info: [debug] [ADB] Restarting adb
+2017-05-12 09:58:08:309 - info: [debug] [ADB] Getting connected devices...
+2017-05-12 09:58:08:431 - info: [HTTP] <-- POST /wd/hub/session - - ms - - 
