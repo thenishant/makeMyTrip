@@ -197,9 +197,7 @@ public class BasePage {
         while (i < 12) {
             if (driver.findElements(byOfElementToBeFound).size() > 0)
                 return;
-
             scrollDown();
-
             i++;
         }
         Assert.fail("Did not find : " + byOfElementToBeFound.toString());
@@ -207,8 +205,14 @@ public class BasePage {
 
     public void scrollDown() {
         int height = driver.manage().window().getSize().getHeight();
-
         driver.swipe(5, height * 2 / 3, 5, height / 3, 1000);
+    }
+
+    public void scrollDownTo(WebElement element){
+        int x = element.getLocation().getX();
+        int y = element.getLocation().getY();
+        int width = driver.manage().window().getSize().getWidth();
+        driver.swipe(x,y,x,width/11,1000);
     }
 
     public void scrollUp() {

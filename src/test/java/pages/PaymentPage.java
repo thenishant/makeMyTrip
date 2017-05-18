@@ -42,6 +42,23 @@ public class PaymentPage extends BasePage {
         continueButton.click();
     }
 
+    private void chooseCreditCard(){
+        waitForElementToBeClickable(paymentOptions);
+        List<WebElement> elements = paymentOptions.get(0).findElements(By.className("android.widget.RelativeLayout"));
+        elements.size();
+        elements.get(7).click();
+    }
+
+    private void continueToPay(){
+        waitForElementToBeClickable(continueButton);
+        continueButton.click();
+    }
+
+    public void payByCreditCard(){
+        chooseCreditCard();
+        continueToPay();
+    }
+
     public void paymentFailure(){
         waitForElementToBeClickable(paymentFailureOkButton);
         paymentFailureOkButton.click();

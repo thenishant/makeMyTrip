@@ -1,12 +1,13 @@
-package pages;
+package pages.flight;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utils.Calender;
+import pages.BasePage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FlightSearchPage extends BasePage {
@@ -18,7 +19,10 @@ public class FlightSearchPage extends BasePage {
     private WebElement arrCity;
 
     @FindBy(id = "com.makemytrip:id/depDateLayout")
-    private WebElement depDate;
+    private WebElement departureDate;
+
+    @FindBy(id = "com.makemytrip:id/returnDateLayout")
+    private WebElement returnDate;
 
     @FindBy(id = "com.makemytrip:id/travellerLayout")
     private WebElement passenger;
@@ -68,8 +72,14 @@ public class FlightSearchPage extends BasePage {
     @FindBy(id = "com.makemytrip:id/calendar_day_row")
     private List<WebElement> dayRow;
 
+    @FindBy(id = "com.makemytrip:id/calendar_month_name")
+    private List<WebElement> monthName;
+
     @FindBy(id = "com.makemytrip:id/calendar_day")
     private By day;
+
+    @FindBy(id = "com.makemytrip:id/cv_pager")
+    private WebElement calender;
 
     private AppiumDriver driver;
 
@@ -79,7 +89,7 @@ public class FlightSearchPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    private void selectFromCity(String city) {
+    public void selectFromCity(String city) {
         waitForElementToBeClickable(depCity);
         depCity.click();
         waitForElementToBeClickable(cityText);
@@ -87,7 +97,7 @@ public class FlightSearchPage extends BasePage {
         chooseCity.stream().findFirst().get().click();
     }
 
-    private void SelectToCity(String city) {
+    public void SelectToCity(String city) {
         waitForElementToBeClickable(arrCity);
         arrCity.click();
         waitForElementToBeClickable(cityText);
@@ -95,26 +105,67 @@ public class FlightSearchPage extends BasePage {
         chooseCity.stream().findFirst().get().click();
     }
 
-    private void getDepDate(String date) {
+    private void getDepartureDate(String date) {
         waitForElementToBeClickable(month);
-        new Calender().getDate(date,month);
+        getDate(date);
     }
 
-    private void getDepDate1(String date) {
+    private void getReturnDate(String date) {
         waitForElementToBeClickable(month);
-
+        getDate(date);
     }
 
-    private void chooseDate(String date) {
-        waitForElementToBeClickable(depDate);
-        depDate.click();
+    private void getCordinate(WebElement element1, WebElement element2) {
+        waitForElementToBeClickable(element1);
+        int x1 = element1.getLocation().getX();
+        int y1 = element1.getLocation().getY();
+        int x2 = element2.getLocation().getX();
+        int y2 = element2.getLocation().getY();
+        driver.swipe(x1, y2, x1, y1, 1000);
+    }
+
+    private void getDate(String date) {
+        String[] splitDate = date.split(" ");
+        String day = splitDate[0];
+        String month = splitDate[1] + " " + splitDate[2];
+        WebElement element = this.month.get(0);
+        waitForElementToBeClickable(element);
+
+        List<WebElement> totalMonths = new ArrayList<>();
+        /*for (int i = 0; i < 10; i++) {
+            List<WebElement> monthsElement = this.month;
+            totalMonths.addAll(monthsElement);
+            String monthName = totalMonths.get(i).getText();
+            getCordinate(this.monthName.get(i), this.monthName.get(i+1));
+        }*/
+        getCordinate(this.monthName.get(0), this.monthName.get(1));
+        List<WebElement> totalDays = new ArrayList<>();
+
+        List<WebElement> elements = this.month.get(0).findElements(By.id("com.makemytrip:id/calendar_day"));
+        totalDays.addAll(elements);
+        scrollDownTo(day);
+        totalDays.get(Integer.parseInt(day) - 1).click();
+    }
+
+    public void chooseDepartureDate(String date) {
+        waitForElementToBeClickable(departureDate);
+        departureDate.click();
         waitForElementToBeClickable(currentDate);
-        getDepDate(date);
+        getDepartureDate(date);
         waitForElementToBeClickable(okDate);
         okDate.click();
     }
 
-    private void chooseNoOfPassengers(int noOfPassenger) {
+    public void chooseReturnDate(String date) {
+        waitForElementToBeClickable(returnDate);
+        returnDate.click();
+        waitForElementToBeClickable(currentDate);
+        getReturnDate(date);
+        waitForElementToBeClickable(okDate);
+        okDate.click();
+    }
+
+    public void chooseNoOfPassengers(int noOfPassenger) {
         waitForElementToBeClickable(passenger);
         passenger.click();
         waitForElementToBeClickable(addAdultPassenger);
@@ -125,7 +176,7 @@ public class FlightSearchPage extends BasePage {
         okPassenger.click();
     }
 
-    private void chooseClazz(String claz) {
+    public void chooseClazz(String claz) {
         waitForElementToBeClickable(clazz);
         clazz.click();
         String travelClass = claz.toLowerCase();
@@ -143,7 +194,7 @@ public class FlightSearchPage extends BasePage {
         }
     }
 
-    private void searchFilght() {
+    public void searchFilght() {
         waitForElementToBeClickable(searchFlight);
         searchFlight.click();
     }
@@ -151,15 +202,19 @@ public class FlightSearchPage extends BasePage {
     public void searchAFlight(String dCity, String aCity, String date, int passenger, String clazz) {
         selectFromCity(dCity);
         SelectToCity(aCity);
-        chooseDate(date);
+        chooseDepartureDate(date);
         chooseNoOfPassengers(passenger);
         chooseClazz(clazz);
         searchFilght();
     }
 
-    private void chooseDate1(String date) {
-        String newDate[] = date.split(" ");
-        String month = newDate[1]+" "+newDate[2];
-        scrollUpTo(month);
+    public void searchAFlight(String dCity, String aCity, String departureDate, String returnDate, int passenger, String clazz) {
+        selectFromCity(dCity);
+        SelectToCity(aCity);
+        chooseDepartureDate(departureDate);
+        chooseReturnDate(returnDate);
+        chooseNoOfPassengers(passenger);
+        chooseClazz(clazz);
+        searchFilght();
     }
 }

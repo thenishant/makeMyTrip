@@ -23,6 +23,7 @@ public class HomePage extends BasePage {
     @FindBy(id = "com.makemytrip:id/activity_home_launcher_hotels_imgvw")
     private WebElement hotels;
 
+    String updateText = "com.makemytrip:id/message_action_update";
     public HomePage(AppiumDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
@@ -30,6 +31,7 @@ public class HomePage extends BasePage {
 
     public void clickFlights(){
         skipReferAFriend();
+        skipUpdate();
         waitForElementToBeClickable(flights);
         flights.click();
     }
@@ -38,6 +40,12 @@ public class HomePage extends BasePage {
         skipReferAFriend();
         waitForElementToBeClickable(hotels);
         hotels.click();
+    }
+
+    private void skipUpdate(){
+        if(isElementPresent(By.id(updateText))){
+            navigateBack();
+        }
     }
 
     private void skipReferAFriend(){

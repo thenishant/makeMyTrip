@@ -17,13 +17,22 @@ public class RoomPages extends BasePage {
     @FindBy(id = "com.makemytrip:id/rb_select_tariff")
     private List<WebElement> selectTariff;
 
+    @FindBy(id = "com.makemytrip:id/btnShowAllHotels")
+    private WebElement continueButton;
+
     private void chooseTariff(){
         waitForElementToBeClickable(selectTariff);
         selectTariff.get(0).click();
     }
 
+    private void continueBooking(){
+        waitForElementToBeClickable(continueButton);
+        continueButton.click();
+    }
+
     public void selectRoom(){
         chooseTariff();
+        continueBooking();
     }
 
 }
