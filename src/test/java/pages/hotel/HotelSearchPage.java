@@ -92,7 +92,7 @@ public class HotelSearchPage extends BasePage {
 
     private void getCheckInDate(String date, List<WebElement> list) {
         waitForElementToBeClickable(month);
-        new Calender().getDate(date, month);
+        getDate(date, month);
     }
 
     private void bookRoom(int noOfRooms, int adult) {
@@ -119,8 +119,8 @@ public class HotelSearchPage extends BasePage {
 
 
     public void searchAHotel(String destination, String inDate, String outDate, int rooms, int adults) {
-//        selectPlace(destination);
-//        selectCheckInCheckOutDate(inDate, outDate);
+        selectPlace(destination);
+        selectCheckInCheckOutDate(inDate, outDate);
         bookRoom(rooms, adults);
         clickSearchButton();
     }

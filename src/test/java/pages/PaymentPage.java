@@ -1,5 +1,7 @@
 package pages;
 
+import exception.NoResultsFound;
+import exception.NoPaymentModeFoundException;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,7 +13,7 @@ import java.util.List;
 public class PaymentPage extends BasePage {
     public PaymentPage(AppiumDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(id = "com.makemytrip:id/payment_option_header_layout")
@@ -29,37 +31,68 @@ public class PaymentPage extends BasePage {
     @FindBy(id = "com.makemytrip:id/payment_failure_ok_button")
     private WebElement paymentFailureOkButton;
 
-    public void selectPaymentMode(){
+    @FindBy(id = "com.makemytrip:id/payment_option_header_textView")
+    private List<WebElement> paymentModeNames;
+
+    public void selectPaymentMode() throws NoPaymentModeFoundException, NoResultsFound {
         waitForElementToBeClickable(paymentHeader);
         waitForElementToBeClickable(paymentOptions);
-        List<WebElement> elements = paymentOptions.get(0).findElements(By.className("android.widget.RelativeLayout"));
-        elements.size();
-        elements.get(7).click();
+        paymentModeNames.size();
+        /*try {
+            switch (paymentMode) {
+                case "Credit Card":
+                    paymentModeNames.get(0).click();
+                    //TODO
+                    break;
+                case "Debit Card":
+                    paymentModeNames.get(1).click();
+                    //TODO
+                    break;
+                case "Net Banking":
+                    paymentModeNames.get(2).click();
+                    //TODO
+                    break;
+                case "Mobile Wallet":
+                    paymentModeNames.get(3).click();
+                    //TODO
+                    break;
+                case "Gift Card":
+                    paymentModeNames.get(4).click();
+                    //TODO
+                    break;
+                case "EMI":
+                    paymentModeNames.get(5).click();
+                    //TODO
+                    break;
+            }
+        } catch (Exception e) {
+            throw new NoPaymentModeFoundException("Selected PaymentMode is not avilable for this transaction");
+        }*/
+        paymentModeNames.get(3).click();
         waitForElementToBeClickable(mobileWallets);
         mobileWallets.get(0).click();
-        mobileWallets.stream().findFirst().get().click();
         waitForElementToBeClickable(continueButton);
         continueButton.click();
     }
 
-    private void chooseCreditCard(){
+    private void chooseCreditCard() {
         waitForElementToBeClickable(paymentOptions);
         List<WebElement> elements = paymentOptions.get(0).findElements(By.className("android.widget.RelativeLayout"));
         elements.size();
         elements.get(7).click();
     }
 
-    private void continueToPay(){
+    private void continueToPay() {
         waitForElementToBeClickable(continueButton);
         continueButton.click();
     }
 
-    public void payByCreditCard(){
+    public void payByCreditCard() {
         chooseCreditCard();
         continueToPay();
     }
 
-    public void paymentFailure(){
+    public void paymentFailure() {
         waitForElementToBeClickable(paymentFailureOkButton);
         paymentFailureOkButton.click();
     }

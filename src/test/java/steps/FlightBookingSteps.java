@@ -1,12 +1,13 @@
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import exception.NoResultsFound;
+import exception.NoPaymentModeFoundException;
 import pages.*;
 import pages.flight.FlightListingPage;
 import pages.flight.FlightSearchPage;
 import pages.flight.TravelerDetailsPage;
-import pages.mobileWallets.MobikwikWallet;
+import pages.payment.MobikwikWallet;
 
 public class FlightBookingSteps extends BaseSteps {
 
@@ -27,11 +28,8 @@ public class FlightBookingSteps extends BaseSteps {
     }
 
     @And("^I choose a flight based on price$")
-    public void iChooseAFlightBasedOnPrice() {
-        flightListingPage.chooseAFlightFormList();
-        flightListingPage.chooseToCancelTicket(true);
-        flightListingPage.insurance(true);
-        flightListingPage.continueToBookFlight();
+    public void iChooseAFlightBasedOnPrice() throws NoResultsFound {
+        flightListingPage.selectOneWayFlight();
     }
 
     @And("^I enter ([^\"]*), ([^\"]*),([^\"]*) as traveler details$")
@@ -45,21 +43,26 @@ public class FlightBookingSteps extends BaseSteps {
         travelerDetailsPage.bookAFlight();
     }
 
-    @And("^I choose to pay by Mobile Wallet$")
-    public void iChooseToPayByMobileWallet() throws Throwable {
+    @And("^I pay by using a payment mode$")
+    public void iChooseToPayByMobileWallet() throws NoPaymentModeFoundException, NoResultsFound {
         paymentPage.selectPaymentMode();
         new MobikwikWallet(getDriverInstanceFor("optimus")).payByWallets();
-        paymentPage.paymentFailure();
+//        paymentPage.paymentFailure();
     }
 
     @And("^I search flight from ([^\"]*) to ([^\"]*) departing ([^\"]*) returning ([^\"]*) for ([^\"]*) on ([^\"]*)$")
     public void iSearchFlightFromSourceToDestinationDepartingAndReturningOnDateForNoOfPassengerOnClass(String dCity, String aCity, String depaturedate, String returnDate, int passenger, String clazz) throws Throwable {
-//        flightSearchPage.selectFromCity(dCity);
-//        flightSearchPage.SelectToCity(aCity);
+        flightSearchPage.selectFromCity(dCity);
+        flightSearchPage.SelectToCity(aCity);
         flightSearchPage.chooseDepartureDate(depaturedate);
         flightSearchPage.chooseReturnDate(returnDate);
         flightSearchPage.chooseNoOfPassengers(passenger);
         flightSearchPage.chooseClazz(clazz);
         flightSearchPage.searchFilght();
+    }
+
+    @And("^I choose a two flight based on price$")
+    public void iChooseATwoFlightBasedOnPrice() throws Throwable {
+        flightListingPage.selectTwoWayFlight();
     }
 }

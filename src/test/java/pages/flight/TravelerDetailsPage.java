@@ -1,5 +1,6 @@
 package pages.flight;
 
+import exception.NoResultsFound;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -48,12 +49,22 @@ public class TravelerDetailsPage extends BasePage {
     @FindBy(id = "com.makemytrip:id/tvAddMealsHeader")
     private WebElement addMealsHeader;
 
+    private By fareChangeBy = By.id("com.makemytrip:id/button_fare_change_continue");
+    private By selectanotherFlight = By.id("com.makemytrip:id/dialog_re_select");
+
+    @FindBy(id = "com.makemytrip:id/button_fare_change_continue")
+    private WebElement fareChangeContinue;
+
+    @FindBy(id = "com.makemytrip:id/dialog_re_select")
+    private WebElement reSelectFlight;
+
     public TravelerDetailsPage(AppiumDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
     private int result;
+
     private int getAdultPassenger() {
         waitForElementToBeClickable(adultPassengers);
         String totalAdults = adultPassengers.getText();
@@ -89,6 +100,23 @@ public class TravelerDetailsPage extends BasePage {
         }
     }
 
+    private void selectAnotherFlight() {
+        if (isElementPresent(selectanotherFlight)) {
+            waitForElementToBeClickable(reSelectFlight);
+            reSelectFlight.click();
+        }
+    }
+
+    private void fareChangeContinue() {
+        if (isElementPresent(fareChangeBy)) {
+            waitForElementToBeClickable(fareChangeContinue);
+            fareChangeContinue.click();
+//            waitForElementToBeClickable(bookFlight);
+//            bookFlight.click();
+
+        }
+    }
+
     public void enterContactInfo(String emailId, String number) {
         waitForElementToBeClickable(addNewAdult);
         scrollDownTo("91");
@@ -104,12 +132,18 @@ public class TravelerDetailsPage extends BasePage {
         scrollDownTo("I agree to the Terms & Conditions and Fare Rules");
     }
 
-    public void bookAFlight() {
-        waitForElementToBeClickable(bookFlight);
-        bookFlight.click();
-        if (isElementPresent(By.id("com.makemytrip:id/tvAddMealsHeader"))) {
-            waitForElementToBeClickable(addMealsHeader);
+    public void bookAFlight() throws NoResultsFound {
+        try {
+            waitForElementToBeClickable(bookFlight);
             bookFlight.click();
+            selectAnotherFlight();
+            fareChangeContinue();
+            if (isElementPresent(By.id("com.makemytrip:id/tvAddMealsHeader"))) {
+                waitForElementToBeClickable(addMealsHeader);
+                bookFlight.click();
+            }
+        } catch (Exception e) {
+            throw new NoResultsFound("Unable to book the flight");
         }
     }
 }

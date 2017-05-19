@@ -107,44 +107,12 @@ public class FlightSearchPage extends BasePage {
 
     private void getDepartureDate(String date) {
         waitForElementToBeClickable(month);
-        getDate(date);
+        getDate(date,month);
     }
 
     private void getReturnDate(String date) {
         waitForElementToBeClickable(month);
-        getDate(date);
-    }
-
-    private void getCordinate(WebElement element1, WebElement element2) {
-        waitForElementToBeClickable(element1);
-        int x1 = element1.getLocation().getX();
-        int y1 = element1.getLocation().getY();
-        int x2 = element2.getLocation().getX();
-        int y2 = element2.getLocation().getY();
-        driver.swipe(x1, y2, x1, y1, 1000);
-    }
-
-    private void getDate(String date) {
-        String[] splitDate = date.split(" ");
-        String day = splitDate[0];
-        String month = splitDate[1] + " " + splitDate[2];
-        WebElement element = this.month.get(0);
-        waitForElementToBeClickable(element);
-
-        List<WebElement> totalMonths = new ArrayList<>();
-        /*for (int i = 0; i < 10; i++) {
-            List<WebElement> monthsElement = this.month;
-            totalMonths.addAll(monthsElement);
-            String monthName = totalMonths.get(i).getText();
-            getCordinate(this.monthName.get(i), this.monthName.get(i+1));
-        }*/
-        getCordinate(this.monthName.get(0), this.monthName.get(1));
-        List<WebElement> totalDays = new ArrayList<>();
-
-        List<WebElement> elements = this.month.get(0).findElements(By.id("com.makemytrip:id/calendar_day"));
-        totalDays.addAll(elements);
-        scrollDownTo(day);
-        totalDays.get(Integer.parseInt(day) - 1).click();
+        getDate(date,month);
     }
 
     public void chooseDepartureDate(String date) {

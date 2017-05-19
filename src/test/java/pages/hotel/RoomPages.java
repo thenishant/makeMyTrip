@@ -31,7 +31,7 @@ public class RoomPages extends BasePage {
     }
 
     public void selectRoom(){
-        chooseTariff();
+//        chooseTariff();
         continueBooking();
     }
 

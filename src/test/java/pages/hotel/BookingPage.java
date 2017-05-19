@@ -10,7 +10,7 @@ import pages.BasePage;
 public class BookingPage extends BasePage {
     public BookingPage(AppiumDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     @FindBy(id = "com.makemytrip:id/tv_offers_review_page")
@@ -28,14 +28,16 @@ public class BookingPage extends BasePage {
     @FindBy(id = "com.makemytrip:id/etGuestInfoPhone")
     private WebElement phoneNumber;
 
-    private void enterTravelerDetails(String fname,String lName, String emailId, String number){
-        if(isElementPresent(By.id("com.makemytrip:id/tvReviewFlexibleFareDismiss"))){
+    @FindBy(id = "com.makemytrip:id/btnShowAllHotels")
+    private WebElement continueButton;
+
+    private void enterTravelerDetails(String fname, String lName, String emailId, String number) {
+        if (isElementPresent(By.id("com.makemytrip:id/tvReviewFlexibleFareDismiss"))) {
 //            waitForElementToBeClickable();
         }
 
-
         waitForElementToBeClickable(offers);
-        scrollDownTo("Offers");
+        scrollDownTo("My Rewards");
         waitForElementToBeClickable(firstName);
         firstName.click();
         firstName.sendKeys(fname);
@@ -48,5 +50,15 @@ public class BookingPage extends BasePage {
         phoneNumber.click();
         phoneNumber.sendKeys(number);
         scrollDownTo("I agree to the Terms & Conditions and Cancellation & Hotel Booking Policies");
+    }
+
+    private void continueToNextPage() {
+        waitForElementToBeClickable(continueButton);
+        continueButton.click();
+    }
+
+    public void reviewBooking(String fname, String lName, String emailId, String number) {
+        enterTravelerDetails(fname, lName, emailId, number);
+        continueToNextPage();
     }
 }

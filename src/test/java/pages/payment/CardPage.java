@@ -1,3 +1,5 @@
+package pages.payment;
+
 import gherkin.lexer.Pa;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ScrollsTo;
@@ -7,11 +9,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.BasePage;
 
-public class CreditCard extends BasePage {
+import java.util.List;
+
+public class CardPage extends BasePage {
 
     AppiumDriver driver;
 
-    public CreditCard(AppiumDriver driver) {
+    public CardPage(AppiumDriver driver) {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(driver,this);
@@ -35,20 +39,42 @@ public class CreditCard extends BasePage {
     @FindBy(id = "com.makemytrip:id/pay_at_hotel_card_terms_checkBox")
     private WebElement termsAndConditions;
 
+    @FindBy(id = "com.makemytrip:id/tvCardDate")
+    private List<WebElement> monthAndYear;
+
+    @FindBy(id = "com.makemytrip:id/continue_layout")
+    private WebElement continueButton;
+
+    private void selectMonth(String month){
+        waitForElementToBeClickable(expMonth);
+        expMonth.click();
+        String m = month +" [(\\d)]+";
+        scrollDownTo(m);
+        monthAndYear.get(6).click();
+    }
+
+    private void selectYear(String year){
+        waitForElementToBeClickable(expYear);
+        expYear.click();
+        scrollDownTo(year);
+        monthAndYear.get(2).click();
+    }
+
     private void cardDetails(String cNumber, String cName, String month, String year, String cvv){
         waitForElementToBeClickable(cardNmber);
         cardNmber.sendKeys(cNumber);
         waitForElementToBeClickable(name);
         name.sendKeys(cName);
-        waitForElementToBeClickable(expMonth);
-        expMonth.click();
-        driver.scrollTo(month);
-        waitForElementToBeClickable(expYear);
-        expYear.click();
-        driver.scrollToExact(year);
+        selectMonth(month);
+        selectYear(year);
         waitForElementToBeClickable(this.cvv);
         this.cvv.sendKeys(cvv);
-        navigateBack();
+        hideKeyboard();
+    }
+
+    private void pay(){
+        waitForElementToBeClickable(continueButton);
+        continueButton.click();
     }
 
     private void acceptTerms(){
@@ -60,5 +86,6 @@ public class CreditCard extends BasePage {
     public void enterCardDetailsAndPay(String cNumber, String cName, String month, String year, String cvv){
         cardDetails(cNumber, cName,  month, year,cvv);
         acceptTerms();
+        pay();
     }
 }

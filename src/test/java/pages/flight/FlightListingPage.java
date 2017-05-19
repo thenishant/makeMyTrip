@@ -1,5 +1,6 @@
 package pages.flight;
 
+import exception.NoResultsFound;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -29,18 +30,33 @@ public class FlightListingPage extends BasePage {
     @FindBy(id = "com.makemytrip:id/current_date_footer_line_view")
     private WebElement currentDateFooter;
 
+    @FindBy(id = "com.makemytrip:id/split_book_btn")
+    private WebElement bookButton;
+
+    @FindBy(id = "com.makemytrip:id/list_item_layout1")
+    private List<WebElement> selectFlight;
+
     public FlightListingPage(AppiumDriver driver) {
         super(driver);
         PageFactory.initElements(driver,this);
     }
 
-    public void chooseAFlightFormList() {
+    private void chooseOneJourneyFlightFormList() {
         waitForElementToBeClickable(currentDateFooter);
         flightListing.size();
         flightListing.stream().findFirst().get().click();
     }
 
-    public void chooseToCancelTicket(boolean isChecked) {
+    private void chooseATwoJourneyFlightFormList() {
+        waitForElementToBeClickable(bookButton);
+        selectFlight.get(0).click();
+        waitForElementToBeClickable(bookButton);
+        selectFlight.get(0).click();
+        waitForElementToBeClickable(bookButton);
+        bookButton.click();
+    }
+
+    private void chooseToCancelTicket(boolean isChecked) {
         if (isElementPresent(By.id("com.makemytrip:id/flt_iv_zc_review"))) {
             waitForElementToBeClickable(ticketCancel);
             if (isChecked)
@@ -48,7 +64,7 @@ public class FlightListingPage extends BasePage {
         }
     }
 
-    public void insurance(boolean isSecure) {
+    private void insurance(boolean isSecure) {
         scrollDownTo("My Trip Rewards");
         waitForElementToBeClickable(secureMyTrip);
         if (isSecure)
@@ -57,8 +73,22 @@ public class FlightListingPage extends BasePage {
             doNotSecureMyTrip.click();
     }
 
-    public void continueToBookFlight(){
+    private void continueToBookFlight(){
         waitForElementToBeClickable(continueButton);
         continueButton.click();
+    }
+
+    public void selectOneWayFlight() throws NoResultsFound {
+        chooseOneJourneyFlightFormList();
+        chooseToCancelTicket(true);
+        insurance(true);
+        continueToBookFlight();
+    }
+
+    public void selectTwoWayFlight()throws NoResultsFound {
+        chooseATwoJourneyFlightFormList();
+        chooseToCancelTicket(true);
+        insurance(true);
+        continueToBookFlight();
     }
 }
