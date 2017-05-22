@@ -16,4 +16,4 @@ Feature: Book a hotel room for 2 people
 
     Examples:
       | city | fromDate    | toDate       | room | customers | firstName | lastName | email         | phoneNumber |
-      | Goa  | 9 June 2017 | 10 June 2017 | 1    | 2         | raj       | sharma   | raj@gmail.com | 1231231232  |
+      | Goa  | 6 June 2017 | 7 June 2017 | 1    | 2         | raj       | sharma   | raj@gmail.com | 1231231232  |
