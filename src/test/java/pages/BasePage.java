@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,7 +23,29 @@ public class BasePage {
 
     public BasePage(AppiumDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(this.driver, 30);
+        wait = new WebDriverWait(this.driver, 45);
+    }
+
+    private void getCordinate(WebElement element1, WebElement element2) {
+        waitForElementToBeClickable(element1);
+        int x1 = element1.getLocation().getX();
+        int y1 = element1.getLocation().getY();
+        int x2 = element2.getLocation().getX();
+        int y2 = element2.getLocation().getY();
+        driver.swipe(x1, y2, x1, y1, 1000);
+    }
+
+    public void getDate(String date,List<WebElement> list) {
+        String[] splitDate = date.split(" ");
+        String day = splitDate[0];
+        WebElement element = list.get(0);
+        waitForElementToBeClickable(element);
+        getCordinate(list.get(0), list.get(1));
+        List<WebElement> totalDays = new ArrayList<>();
+        List<WebElement> elements = list.get(0).findElements(By.id("com.makemytrip:id/calendar_day"));
+        totalDays.addAll(elements);
+        scrollDownTo(day);
+        totalDays.get(Integer.parseInt(day) - 1).click();
     }
 
     public boolean allowPermissionPopup() {
@@ -70,6 +93,10 @@ public class BasePage {
 
     public void waitForElementToBeRefreshed(By by) {
         wait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(by)));
+    }
+
+    public void waitForElementToBeClickable(List<WebElement> elementList) {
+        wait.until(ExpectedConditions.elementToBeClickable(elementList.stream().findAny().get()));
     }
 
     public void waitForElementToBeClickable(By by) {
@@ -193,9 +220,7 @@ public class BasePage {
         while (i < 12) {
             if (driver.findElements(byOfElementToBeFound).size() > 0)
                 return;
-
             scrollDown();
-
             i++;
         }
         Assert.fail("Did not find : " + byOfElementToBeFound.toString());
@@ -203,8 +228,14 @@ public class BasePage {
 
     public void scrollDown() {
         int height = driver.manage().window().getSize().getHeight();
-
         driver.swipe(5, height * 2 / 3, 5, height / 3, 1000);
+    }
+
+    public void scrollDownTo(WebElement element){
+        int x = element.getLocation().getX();
+        int y = element.getLocation().getY();
+        int width = driver.manage().window().getSize().getWidth();
+        driver.swipe(x,y,x,width/11,1000);
     }
 
     public void scrollUp() {
